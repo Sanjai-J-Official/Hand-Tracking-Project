@@ -3,7 +3,7 @@ import cv2
 import mediapipe as mp
 
 class handDetetor():
-    def __init__(self,mode=False,maxHands=2,detectconf=0.5,trackconf=0.5):
+    def __init__(self,mode=False,maxHands=2,detectconf=0.90,trackconf=0.5):
         self.mode=mode
         self.maxHands=maxHands
         self.detectconf=detectconf
@@ -30,7 +30,7 @@ class handDetetor():
                     self.mpdraws.draw_landmarks(imgf,handLMS,self.mphands.HAND_CONNECTIONS)
         return imgf
     
-    def findposition(self,img,handno,draw=True):
+    def findposition(self,img,draw=True):
         list_lm=[]
         if self.result.multi_hand_landmarks:
             for handLMS in self.result.multi_hand_landmarks:
@@ -41,11 +41,11 @@ class handDetetor():
                     # print(id,cx,cy)
                     
 
-                    if id==handno:
-                        list_lm.append([id,cx,cy])
-                        
-                        if draw:
-                            cv2.circle(img,(cx,cy),25,(0,90,255),cv2.FILLED)
+                #if id==handno:
+                    list_lm.append([id,cx,cy])
+                    
+                    #if draw:
+                        #cv2.circle(img,(cx,cy),25,(0,90,255),cv2.FILLED)
         return list_lm
 
 
